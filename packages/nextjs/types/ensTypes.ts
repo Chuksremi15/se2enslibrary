@@ -1,8 +1,11 @@
+import { UseInfiniteQueryOptions, UseQueryOptions } from "@tanstack/react-query";
 import type { Account, Address, Client, Hex, TransactionReceipt, Transport } from "viem";
 import { SupportedChain } from "~~/contants/chains";
 import { wagmiConfig } from "~~/services/web3/ensWagmiConfig";
 
+export type ConnectorClientWithEns = Client<Transport, SupportedChain, Account>;
 export type ConfigWithEns = typeof wagmiConfig;
+export type ClientWithEns = ReturnType<ConfigWithEns["getClient"]>;
 
 export type QueryDependencyType = "standard" | "graph" | "independent";
 export type CreateQueryKey<
@@ -25,3 +28,13 @@ export type CreateQueryKey<
       scopeKey: string | undefined,
       functionName: TFunctionName,
     ];
+
+export type QueryConfig<TData, TError, TSelectData = TData> = Pick<
+  UseQueryOptions<TData, TError, TSelectData>,
+  "gcTime" | "enabled" | "staleTime"
+> & {
+  /** Scope the cache to a given context. */
+  scopeKey?: string;
+};
+
+export type PartialBy<TType, TKeys extends keyof TType> = Partial<Pick<TType, TKeys>> & Omit<TType, TKeys>;

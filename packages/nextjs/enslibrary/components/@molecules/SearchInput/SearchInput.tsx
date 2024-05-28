@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { SearchResult } from "./SearchResult";
 import { SearchItem } from "./Types";
 import {
   GetExpiryReturnType,
@@ -40,7 +41,7 @@ export const SearchInput = () => {
     if (isEmpty) {
       return {
         type: "text",
-        value: "search.emptyText",
+        value: "emptyText",
       };
     }
     if (inputIsAddress) {
@@ -51,13 +52,13 @@ export const SearchInput = () => {
     if (!isValid) {
       return {
         type: "error",
-        value: "search.errors.invalid",
+        value: "Invalid name",
       };
     }
     if (isETH && is2LD && isShort) {
       return {
         type: "error",
-        value: "search.errors.tooShort",
+        value: "Too short",
       };
     }
     if (type === "label") {
@@ -69,10 +70,6 @@ export const SearchInput = () => {
       type: "name",
     };
   }, [isEmpty, inputIsAddress, isValid, isETH, is2LD, isShort, type]);
-
-  useEffect(() => {
-    console.log(searchItem);
-  }, [searchItem]);
 
   const handleFocusIn = useCallback(() => setToggle(true), [toggle]);
   const handleFocusOut = useCallback(() => setToggle(false), [toggle]);
@@ -197,6 +194,10 @@ export const SearchInput = () => {
     };
   }, [handleFocusIn, handleFocusOut, handleKeyDown, searchInputRef]);
 
+  const clearInputValue = () => {
+    setInputVal("");
+  };
+
   return (
     <div className="flex flex-col items-center gap-y-2">
       <div className="flex items-center w-full relative">
@@ -213,7 +214,10 @@ export const SearchInput = () => {
           ref={searchInputRef}
         />
 
-        <div className="absolute right-4 hover:scale-95 text-gray-500 transition-all duration-200 cursor-pointer">
+        <div
+          onClick={() => clearInputValue()}
+          className="absolute right-4 hover:scale-95 text-gray-500 transition-all duration-200 cursor-pointer"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -231,18 +235,19 @@ export const SearchInput = () => {
         </div>
       </div>
 
-      <div className="w-[350px] bg-white h-[50px] rounded-lg shadow-sm p-3 flex items-center justify-between">
-        <div className="flex items-center gap-x-2">
-          <div className="h-6 w-6 bg-blue-500 rounded-full" />{" "}
-          <p className=" font-medium text-base lowercase">Chuksremi.eth</p>
+      {
+        <div
+          className={`${
+            searchItem.value !== "emptyText" ? "opacity-100" : "opacity-0"
+          }  transition-opacity ease-in duration-200`}
+        >
+          <SearchResult
+            value={searchItem.value || normalisedOutput}
+            type={searchItem.type}
+            clickCallback={handleSearch}
+          />
         </div>
-        <div className="flex gap-x-2 items-center">
-          <div className="py-[3px] px-[8px]  capitalize flex items-centern justify-center text-center text-xs bg-green-50 text-green-500 rounded-full  font-body font-medium cursor-pointer">
-            Available
-          </div>
-          <div className="w-0 h-0 border-l-gray-300 border-t-transparent border-b-transparent  border-r-[0px] border-l-[7px] border-t-[7px] border-b-[7px] bg-white "></div>
-        </div>
-      </div>
+      }
     </div>
   );
 };
