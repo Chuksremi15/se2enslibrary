@@ -1,8 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { SearchResult } from "./SearchResult";
-import { SearchItem } from "./Types";
+import { SearchItem } from "./types";
 import {
   GetExpiryReturnType,
   GetOwnerReturnType,
@@ -11,7 +12,6 @@ import {
 } from "@ensdomains/ensjs/public";
 import { isAddress } from "viem";
 import { useAccount, useChainId } from "wagmi";
-import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { queryClient } from "~~/components/ScaffoldEthAppWithProviders";
 import { createQueryKey } from "~~/hooks/ens-hook/useQuerryOptions";
 import { ValidationResult, useValidate, validate } from "~~/hooks/ens-hook/useValidate";
@@ -23,6 +23,7 @@ export const SearchInput = () => {
   const [selected, setSelected] = useState(0);
   const [toggle, setToggle] = useState(false);
 
+  const router = useRouter();
   const { address } = useAccount();
   const chainId = useChainId();
 
@@ -96,7 +97,8 @@ export const SearchInput = () => {
         return;
       }
     }
-    let path = selectedItem.type === "address" ? `/address/${selectedItem.value}` : `/profile/${selectedItem.value}`;
+    let path = selectedItem.type === "address" ? `/address/${selectedItem.value}` : `/register/${selectedItem.value}`;
+
     if (selectedItem.type === "nameWithDotEth" || selectedItem.type === "name") {
       const currentValidation =
         queryClient.getQueryData<ValidationResult>(
@@ -106,6 +108,8 @@ export const SearchInput = () => {
             params: { input: selectedItem.value },
           }),
         ) || validate(selectedItem.value);
+
+      console.log("currentValidation :", currentValidation);
       if (currentValidation.is2LD && currentValidation.isETH && currentValidation.isShort) {
         return;
       }
@@ -118,6 +122,8 @@ export const SearchInput = () => {
           params: { name: selectedItem.value },
         }),
       );
+
+      console.log("ownerData :", ownerData);
       const wrapperData = queryClient.getQueryData<GetWrapperDataReturnType>(
         createQueryKey({
           address,
@@ -154,23 +160,17 @@ export const SearchInput = () => {
           expiryData,
           priceData,
         });
+
+        console.log("registrationStatus", registrationStatus);
         if (registrationStatus === "available") {
           path = `/register/${selectedItem.value}`;
         }
       }
     }
-    if ("isHistory" in selectedItem) {
-      delete (selectedItem as SearchItem & { isHistory?: boolean }).isHistory;
-    }
-    // setHistory((prev) => [
-    //   ...prev
-    //     .filter((item) => !(item.value === selectedItem.value && item.type === selectedItem.type))
-    //     .slice(0, 25),
-    //   { ...selectedItem, lastAccessed: Date.now() } as HistoryItem,
-    // ])
+
     setInputVal("");
     searchInputRef.current?.blur();
-    // router.pushWithHistory(path)
+    router.push(path);
   }, [normalisedOutput, queryClient, searchItem, selected, chainId, address]);
 
   const handleKeyDown = useCallback(
@@ -200,7 +200,7 @@ export const SearchInput = () => {
 
   return (
     <div className="flex flex-col items-center gap-y-2">
-      <div className="flex items-center w-full relative">
+      <div className="flex items-center w-[350px] relative">
         <input
           className="input rounded-xl h-14 focus:outline-0 focus:border-blue-300 w-[350px] mx-auto  focus:text-black focus:text-lg  px-4 border  placeholder:text-gray-400 placeholder:text-lg text-gray-400 transition-all duration-300"
           placeholder="Search for a name"

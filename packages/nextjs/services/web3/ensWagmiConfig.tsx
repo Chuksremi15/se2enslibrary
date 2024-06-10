@@ -2,7 +2,7 @@ import { connectors } from "./wagmiConnectors";
 import { FallbackTransport, HttpTransport } from "viem";
 import { createConfig, createStorage, fallback, http } from "wagmi";
 import { goerli, holesky, localhost, mainnet, sepolia } from "wagmi/chains";
-import { goerliWithEns, holeskyWithEns, mainnetWithEns, sepoliaWithEns } from "~~/contants/chains";
+import { goerliWithEns, holeskyWithEns, mainnetWithEns, sepoliaWithEns } from "~~/constants/chains";
 import { WC_PROJECT_ID } from "~~/utils/ens-utils/contants";
 
 const isLocalProvider = !!process.env.NEXT_PUBLIC_PROVIDER;

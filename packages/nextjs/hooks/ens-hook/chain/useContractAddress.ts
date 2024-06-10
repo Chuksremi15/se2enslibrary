@@ -1,6 +1,6 @@
 import { getChainContractAddress } from "viem";
 import { useClient } from "wagmi";
-import { ClientWithEns } from "~~/types/ensTypes";
+import { ClientWithEns } from "~~/types/ens-types/ensTypes";
 
 export const getSupportedChainContractAddress = <
   TContract extends Extract<keyof ClientWithEns["chain"]["contracts"], string>,

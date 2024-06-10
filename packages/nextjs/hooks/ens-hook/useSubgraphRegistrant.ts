@@ -5,7 +5,7 @@ import {
   getSubgraphRegistrant,
 } from "@ensdomains/ensjs/subgraph";
 import { QueryFunctionContext, queryOptions, useQuery } from "@tanstack/react-query";
-import { ConfigWithEns, CreateQueryKey, PartialBy, QueryConfig } from "~~/types/ensTypes";
+import { ConfigWithEns, CreateQueryKey, PartialBy, QueryConfig } from "~~/types/ens-types/ensTypes";
 import { getIsCachedData } from "~~/utils/ens-utils/getIsCachedData";
 
 export type UseSubgraphRegistrantParameters = PartialBy<GetSubgraphRegistrantParameters, "name">;

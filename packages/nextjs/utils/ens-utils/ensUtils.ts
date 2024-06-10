@@ -1,5 +1,5 @@
-// import { CURRENCY_FLUCTUATION_BUFFER_PERCENTAGE } from "./constants";
 // import { KNOWN_RESOLVER_DATA } from "./constants/resolverAddressData";
+import { CURRENCY_FLUCTUATION_BUFFER_PERCENTAGE } from "./contants";
 import { Eth2ldName } from "@ensdomains/ensjs/dist/types/types";
 import { DecodedFuses } from "@ensdomains/ensjs/utils";
 import { type Address, toBytes } from "viem";
@@ -123,7 +123,7 @@ export const validateExpiry = ({
 //   !!resolverAddress &&
 //   !!KNOWN_RESOLVER_DATA[chainId]?.find((x) => x.address === resolverAddress)?.isNameWrapperAware
 
-// export const calculateValueWithBuffer = (value: bigint) => (value * CURRENCY_FLUCTUATION_BUFFER_PERCENTAGE) / 100n;
+export const calculateValueWithBuffer = (value: bigint) => (value * CURRENCY_FLUCTUATION_BUFFER_PERCENTAGE) / 100n;
 
 const encodedLabelRegex = /\[[a-fA-F0-9]{64}\]/g;
 export const getEncodedLabelAmount = (name: string) => name.match(encodedLabelRegex)?.length || 0;

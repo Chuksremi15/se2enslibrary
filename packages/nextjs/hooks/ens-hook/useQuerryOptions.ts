@@ -1,7 +1,7 @@
 import type { Address } from "viem";
 import { useAccount, useChainId, useConfig } from "wagmi";
-import { SupportedChain } from "~~/contants/chains";
-import { ConfigWithEns, CreateQueryKey, QueryDependencyType } from "~~/types/ensTypes";
+import { SupportedChain } from "~~/constants/chains";
+import { ConfigWithEns, CreateQueryKey, QueryDependencyType } from "~~/types/ens-types/ensTypes";
 
 export type QueryKeyConfig<
   TParams extends {},

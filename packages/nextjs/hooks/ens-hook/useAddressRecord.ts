@@ -1,7 +1,7 @@
 import { useQueryOptions } from "./useQuerryOptions";
 import { GetAddressRecordParameters, GetAddressRecordReturnType, getAddressRecord } from "@ensdomains/ensjs/public";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
-import { ConfigWithEns, CreateQueryKey, PartialBy, QueryConfig } from "~~/types/ensTypes";
+import { ConfigWithEns, CreateQueryKey, PartialBy, QueryConfig } from "~~/types/ens-types/ensTypes";
 import { getIsCachedData } from "~~/utils/ens-utils/getIsCachedData";
 import { prepareQueryOptions } from "~~/utils/ens-utils/prepareQueryOptions";
 

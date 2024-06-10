@@ -1,7 +1,11 @@
 import { UseInfiniteQueryOptions, UseQueryOptions } from "@tanstack/react-query";
 import type { Account, Address, Client, Hex, TransactionReceipt, Transport } from "viem";
-import { SupportedChain } from "~~/contants/chains";
+import { SupportedChain } from "~~/constants/chains";
 import { wagmiConfig } from "~~/services/web3/ensWagmiConfig";
+
+export type Prettify<T> = {
+  [K in keyof T]: T[K];
+} & {};
 
 export type ConnectorClientWithEns = Client<Transport, SupportedChain, Account>;
 export type ConfigWithEns = typeof wagmiConfig;

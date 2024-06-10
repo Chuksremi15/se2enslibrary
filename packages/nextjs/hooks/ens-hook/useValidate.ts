@@ -1,10 +1,7 @@
 import { useQueryOptions } from "./useQuerryOptions";
 import { ParsedInputResult, beautify, parseInput } from "@ensdomains/ensjs/utils";
 import { useQuery } from "@tanstack/react-query";
-
-export type Prettify<T> = {
-  [K in keyof T]: T[K];
-} & {};
+import { Prettify } from "~~/types/ens-types/ensTypes";
 
 export type ValidationResult = Prettify<
   Partial<Omit<ParsedInputResult, "normalised" | "labelDataArray">> & {

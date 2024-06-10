@@ -1,17 +1,18 @@
 "use client";
 
-import { useMemo } from "react";
-import { SearchItemType } from "./Types";
+import { useCallback, useMemo } from "react";
+import { SearchItemType } from "./types";
 import { useBasicName } from "~~/hooks/ens-hook/useBasicName";
 import { RegistrationStatus } from "~~/utils/ens-utils/registrationStatus";
 
 export const SearchResult = ({
   value,
   type,
+  clickCallback,
 }: {
   type: SearchItemType | "nameWithDotEth";
   value: string;
-  clickCallback: (index: number) => void;
+  clickCallback: (input: string) => void;
 }) => {
   const input = useMemo(() => {
     if (type === "nameWithDotEth") {
@@ -20,11 +21,18 @@ export const SearchResult = ({
     return value;
   }, [type, value]);
 
+  const handleClick = useCallback(() => {
+    if (registrationStatus !== "short") {
+      console.log("124");
+      clickCallback(input);
+    }
+  }, [input, clickCallback]);
+
   const { registrationStatus, isLoading, beautifiedName } = useBasicName({ name: input });
 
   if (type === "error") {
     return (
-      <div className="w-[350px] bg-red-100 h-[50px] rounded-lg shadow-sm p-3 flex items-center justify-between">
+      <div className="w-[350px] bg-red-100 h-[50px] text-black rounded-lg shadow-sm p-3 flex items-center justify-between">
         {" "}
         <div className="font-bold">{value}</div>
       </div>
@@ -33,9 +41,12 @@ export const SearchResult = ({
 
   if (type === "name" || type === "nameWithDotEth") {
     return (
-      <div className="w-[350px] bg-white h-[50px] rounded-lg shadow-sm p-3 flex items-center justify-between">
+      <div
+        onClick={handleClick}
+        className="w-[350px] cursor-pointer  bg-base-100  h-[50px] rounded-lg shadow-sm p-3 flex items-center justify-between"
+      >
         <div className="flex items-center gap-x-2">
-          <div className="h-6 w-6 bg-blue-500 rounded-full" />{" "}
+          <div className="h-6 w-6 bg-blue-500 rounded-full" />
           <p className=" font-medium text-base lowercase">{beautifiedName}</p>
         </div>
         <div className="flex gap-x-2 items-center">
@@ -45,7 +56,7 @@ export const SearchResult = ({
             <StatusTag status={registrationStatus} />
           )}
 
-          <div className="w-0 h-0 border-l-gray-300 border-t-transparent border-b-transparent  border-r-[0px] border-l-[7px] border-t-[7px] border-b-[7px] bg-white "></div>
+          <div className="w-0 h-0 border-l-gray-300 border-t-transparent border-b-transparent  border-r-[0px] border-l-[7px] border-t-[7px] border-b-[7px]  "></div>
         </div>
       </div>
     );
