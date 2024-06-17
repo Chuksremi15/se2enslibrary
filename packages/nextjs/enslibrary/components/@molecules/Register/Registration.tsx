@@ -1,5 +1,6 @@
 import React, { ChangeEventHandler, InputHTMLAttributes, useCallback, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
+import { FullInvoice } from "./FullInvoice";
 import { PlusMinusControl } from "./PlusMinusControl";
 import { RegistrationReducerDataItem } from "./types";
 import { useAccount, useChainId } from "wagmi";
@@ -54,9 +55,7 @@ export const Registration = ({ nameDetails }: Props) => {
     },
   });
 
-  useEffect(() => {
-    if (fullEstimate) console.log(fullEstimate);
-  }, [fullEstimate]);
+  console.log(fullEstimate);
 
   return (
     <div className="flex flex-col gap-y-4 py-2 px-6 bg-base-100 w-[500px]  rounded-xl shadow-sm">
@@ -71,23 +70,7 @@ export const Registration = ({ nameDetails }: Props) => {
         }}
       />
 
-      <div className="bg-base-200 flex flex-col gap-y-2 rounded-xl px-4 py-4 my-3">
-        {" "}
-        <>
-          <div className="flex justify-between font-body text-sm ">
-            <h6>
-              {years} {years > 1 ? " years" : " year"} registration
-            </h6>{" "}
-            <h6>updatedPrice ETH</h6>
-          </div>
-          <div className="flex justify-between font-body text-sm ">
-            <h6>Est. network fee</h6> <h6>gasPriceEstimate ETH</h6>
-          </div>
-          <div className="flex justify-between font-body text-sm ">
-            <h6>Estimated total</h6> <h6>totalFee ETH</h6>
-          </div>
-        </>
-      </div>
+      <FullInvoice {...fullEstimate} unit={"eth"} />
     </div>
   );
 };
