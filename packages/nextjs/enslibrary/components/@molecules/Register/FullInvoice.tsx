@@ -50,18 +50,26 @@ export const FullInvoice = ({
     <div className="bg-base-200 flex flex-col gap-y-2 rounded-xl px-4 py-4 my-3">
       {" "}
       <>
-        filteredItems.map(())
+        {invoiceItems.map(({ label, value, bufferPercentage }) => (
+          <div className="flex justify-between font-body text-sm ">
+            <h6>
+              {years} {years > 1 ? " years" : " year"} registration
+            </h6>{" "}
+            <h6> ETH</h6>
+          </div>
+        ))}
+
         <div className="flex justify-between font-body text-sm ">
           <h6>
             {years} {years > 1 ? " years" : " year"} registration
           </h6>{" "}
-          <h6>updatedPrice ETH</h6>
+          <h6>{years} ETH</h6>
         </div>
         <div className="flex justify-between font-body text-sm ">
           <h6>Est. network fee</h6> <h6>{formatUnits(estimatedGasFee, 18)} ETH</h6>
         </div>
         <div className="flex justify-between font-body text-sm ">
-          <h6>Estimated total</h6> <h6>totalFee ETH</h6>
+          <h6>Estimated total</h6> <h6>{formatUnits(total, 18)} ETH</h6>
         </div>
       </>
     </div>

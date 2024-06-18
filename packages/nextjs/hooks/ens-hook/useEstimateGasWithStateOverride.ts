@@ -212,13 +212,15 @@ export const estimateGasWithStateOverrideQueryFn =
   }: QueryFunctionContext<QueryKey<TransactionItems, TParams>>) => {
     const client = config.getClient({ chainId });
 
+    console.log("wallet client: ", client);
+
     const connectorClientWithAccount = {
       ...(connectorClient ?? client),
       ...(connectorClient?.account?.address
         ? {}
         : {
             account: {
-              address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+              address: "0x673cdcbaDBD4137A627A92123c94D5CDBA05839c3",
               type: "json-rpc",
             },
           }),
@@ -233,6 +235,8 @@ export const estimateGasWithStateOverrideQueryFn =
         }),
       ),
     );
+
+    console.log("gasEstimate: ", gasEstimates);
 
     return {
       reduced: gasEstimates.reduce((acc, curr) => acc + curr, 0n),
@@ -270,6 +274,8 @@ export const useEstimateGasWithStateOverride = <
   });
 
   const query = useQuery(preparedOptions);
+
+  console.log(query.data);
 
   const { data: gasPrice, isLoading: isGasPriceLoading, isFetching: isGasPriceFetching } = useGasPrice();
 

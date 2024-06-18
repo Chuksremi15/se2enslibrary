@@ -43,7 +43,9 @@ export const Registration = ({ nameDetails }: Props) => {
 
   //property for clearRecords is originally resolverExists but is set to true for safety/time. A hook can be written to check if resolverExists
 
-  const fullEstimate = useEstimateFullRegistration({
+  let fullEstimate: ReturnType<typeof useEstimateFullRegistration>;
+
+  fullEstimate = useEstimateFullRegistration({
     name: nameDetails.normalisedName,
     registrationData: {
       ...registrationData,
@@ -54,8 +56,6 @@ export const Registration = ({ nameDetails }: Props) => {
       resolverAddress,
     },
   });
-
-  console.log(fullEstimate);
 
   return (
     <div className="flex flex-col gap-y-4 py-2 px-6 bg-base-100 w-[500px]  rounded-xl shadow-sm">
@@ -69,8 +69,7 @@ export const Registration = ({ nameDetails }: Props) => {
           if (!Number.isNaN(newYears)) setYears(newYears);
         }}
       />
-
-      <FullInvoice {...fullEstimate} unit={"eth"} />
+      {fullEstimate && <FullInvoice {...fullEstimate} unit={"eth"} />}
     </div>
   );
 };

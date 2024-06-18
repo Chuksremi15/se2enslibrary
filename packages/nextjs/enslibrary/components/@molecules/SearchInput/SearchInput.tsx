@@ -12,10 +12,10 @@ import {
 } from "@ensdomains/ensjs/public";
 import { isAddress } from "viem";
 import { useAccount, useChainId } from "wagmi";
-import { queryClient } from "~~/components/ScaffoldEthAppWithProviders";
 import { createQueryKey } from "~~/hooks/ens-hook/useQuerryOptions";
 import { ValidationResult, useValidate, validate } from "~~/hooks/ens-hook/useValidate";
 import { yearsToSeconds } from "~~/utils/ens-utils/ensUtils";
+import { queryClient } from "~~/utils/ens-utils/query/reactQuery";
 import { getRegistrationStatus } from "~~/utils/ens-utils/registrationStatus";
 
 export const SearchInput = () => {

@@ -2368,7 +2368,10 @@ __metadata:
     "@ensdomains/ensjs": 3.5.0-beta.2
     "@heroicons/react": ^2.0.11
     "@rainbow-me/rainbowkit": ^2.0.2
+    "@tanstack/query-persist-client-core": ^5.45.0
+    "@tanstack/query-sync-storage-persister": ^5.45.0
     "@tanstack/react-query": ^5.28.6
+    "@tanstack/react-query-persist-client": ^5.45.1
     "@trivago/prettier-plugin-sort-imports": ^4.1.1
     "@types/node": ^17.0.35
     "@types/nprogress": ^0
@@ -2405,7 +2408,7 @@ __metadata:
     use-immer: 0.7.0
     usehooks-ts: ^2.13.0
     vercel: ^32.4.1
-    viem: ^2.8.16
+    viem: 2.7.13
     wagmi: ^2.5.12
     zustand: ^4.1.2
   languageName: unknown
@@ -2708,6 +2711,44 @@ __metadata:
   version: 5.28.6
   resolution: "@tanstack/query-core@npm:5.28.6"
   checksum: 2d8406e707fe36a72a90fd0f4f2975bb14b0546c9d39574e0b70a2e52e49f12bff44f6610a0c15a526c0b0561b18c65987602e4ad3ea3fd767502bb938985f88
+  languageName: node
+  linkType: hard
+
+"@tanstack/query-core@npm:5.45.0":
+  version: 5.45.0
+  resolution: "@tanstack/query-core@npm:5.45.0"
+  checksum: a3c13d90cfa12955d22fa754ebfddbea70081fc0128111083269bdd78ed0d25678f050007b753164a929a00fdef9ee5ebba945deb8e360120ae3cbae06e655a5
+  languageName: node
+  linkType: hard
+
+"@tanstack/query-persist-client-core@npm:5.45.0, @tanstack/query-persist-client-core@npm:^5.45.0":
+  version: 5.45.0
+  resolution: "@tanstack/query-persist-client-core@npm:5.45.0"
+  dependencies:
+    "@tanstack/query-core": 5.45.0
+  checksum: b5b3ea24da4c3cff6d61c6072699af223356648259f4ef02c16c9ab6766293982599ffda7053c61177b19cd156a188fa0c3b992cebf74b1a50fd87af166b139d
+  languageName: node
+  linkType: hard
+
+"@tanstack/query-sync-storage-persister@npm:^5.45.0":
+  version: 5.45.0
+  resolution: "@tanstack/query-sync-storage-persister@npm:5.45.0"
+  dependencies:
+    "@tanstack/query-core": 5.45.0
+    "@tanstack/query-persist-client-core": 5.45.0
+  checksum: f2dfbbcda88708f9b40ea92adf787df5e3f5902b4a21275b636c45218ffae3b9cc59709566c0588e9aadf34110cb5daeced154bd73fd7e936b261ceb03b5330d
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query-persist-client@npm:^5.45.1":
+  version: 5.45.1
+  resolution: "@tanstack/react-query-persist-client@npm:5.45.1"
+  dependencies:
+    "@tanstack/query-persist-client-core": 5.45.0
+  peerDependencies:
+    "@tanstack/react-query": ^5.45.1
+    react: ^18 || ^19
+  checksum: 2832b720ace3483cf0be21f9ff5f6cb26c7e806639ac72817e22c4d2108648c7cc67d270b8b1a420b15d192f27d8e8b882324c716ba095679648ac546e936cb8
   languageName: node
   linkType: hard
 
@@ -15613,7 +15654,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"viem@npm:2.8.16, viem@npm:^2.8.16":
+"viem@npm:2.7.13":
+  version: 2.7.13
+  resolution: "viem@npm:2.7.13"
+  dependencies:
+    "@adraffy/ens-normalize": 1.10.0
+    "@noble/curves": 1.2.0
+    "@noble/hashes": 1.3.2
+    "@scure/bip32": 1.3.2
+    "@scure/bip39": 1.2.1
+    abitype: 1.0.0
+    isows: 1.0.3
+    ws: 8.13.0
+  peerDependencies:
+    typescript: ">=5.0.4"
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 80b66808e8eda83fad90f25ce5ca34a842adb629d9b62370a8c369f8dc8ac6d9098f8a35b5ffc6ebe5de3d90cd7155afabd5afd24c9813eb4d10151ecac634ee
+  languageName: node
+  linkType: hard
+
+"viem@npm:2.8.16":
   version: 2.8.16
   resolution: "viem@npm:2.8.16"
   dependencies:

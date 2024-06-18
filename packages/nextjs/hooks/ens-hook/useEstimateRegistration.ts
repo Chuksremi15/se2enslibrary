@@ -15,10 +15,6 @@ type UseEstimateFullRegistrationParameters = {
   name: string;
 };
 
-// BigInt.prototype["toJSON"] = function () {
-//   return this.toString();
-// };
-
 export const useEstimateFullRegistration = ({ registrationData, name }: UseEstimateFullRegistrationParameters) => {
   const { address } = useAccount();
   const { data: gasPrice, isLoading: gasPriceLoading } = useGasPrice();
